@@ -7,37 +7,37 @@ class Node {
 }
 
 class Tree {
-  constructor(array) {
-    array.sort();
-    console.log(array);
-    this.root = this.buildTree(array);
+  constructor(arr) {
+    arr.sort((a, b) => a - b);
+    console.log(arr);
+    this.root = this.buildTree(arr);
   }
 
-  buildTree(array) {
-
-    if (array.length == 1) {
-        return new Node(array[0]);
+  buildTree(arr) {
+    if (arr.length == 1) {
+      return new Node(arr[0]);
     }
-    const mid = array.length / 2;
-    const root = new Node(array[mid]);
-    root.left = this.buildTree(array.slice(0, mid));
-    root.right = this.buildTree(array.slice(mid));
+    const mid = Math.floor(arr.length / 2);
+    const root = new Node(arr[mid]);
+    root.left = this.buildTree(arr.slice(0, mid));
+    root.right = this.buildTree(arr.slice(mid));
     return root;
   }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
-    if (node === null) {
-      return;
-    }
-    if (node.right !== null) {
-      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-    }
-    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-    if (node.left !== null) {
-      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-    }
-  };
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  }
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+};
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 11, 12, 67, 6345, 324]);
-prettyPrint(tree.root)
+let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 11, 12, 67, 6345, 324];
+const tree = new Tree(arr);
+prettyPrint(tree.root);
