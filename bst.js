@@ -14,13 +14,19 @@ class Tree {
   }
 
   buildTree(arr) {
-    if (arr.length == 1) {
+    if (arr.length == 2) {
+      let node = new Node(arr[1]);
+      node.left = new Node(arr[0]);
+      return node;
+    } else if (arr.length == 1) {
       return new Node(arr[0]);
     }
+
     const mid = Math.floor(arr.length / 2);
     const root = new Node(arr[mid]);
     root.left = this.buildTree(arr.slice(0, mid));
-    root.right = this.buildTree(arr.slice(mid));
+    root.right = this.buildTree(arr.slice(mid + 1));
+
     return root;
   }
 }
@@ -38,6 +44,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 11, 12, 67, 6345, 324];
+let arr = [1, 2, 3, 4, 5, 6, 7];
 const tree = new Tree(arr);
 prettyPrint(tree.root);
