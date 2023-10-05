@@ -43,6 +43,20 @@ class Tree {
     }
     return root;
   }
+
+  delete(root, value) {
+    if (value == root.data) {
+      if (root.left == null && root.right == null) {
+        return null;
+      }
+    }
+    if (value < root.data) {
+      root.left = this.delete(root.left,  value);
+    } else {
+      root.right = this.delete(root.right, value);
+    }
+    return root;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -61,5 +75,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [1, 2, 3, 4, 5, 6, 7];
 const tree = new Tree(arr);
 tree.insert(tree.root, 8);
-tree.insert(tree.root, 2);
+prettyPrint(tree.root);
+tree.delete(tree.root, 8);
 prettyPrint(tree.root);
