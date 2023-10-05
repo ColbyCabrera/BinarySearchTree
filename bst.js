@@ -48,10 +48,20 @@ class Tree {
     if (value == root.data) {
       if (root.left == null && root.right == null) {
         return null;
+      } else if (root.left && root.right) {
+        // Both children
+        console.log("Not implemented");
+        return null;
+      } else if (root.left && !root.right) {
+        const child = new Node(root.left.data);
+        return child;
+      } else {
+        const child = new Node(root.right.data);
+        return child;
       }
     }
     if (value < root.data) {
-      root.left = this.delete(root.left,  value);
+      root.left = this.delete(root.left, value);
     } else {
       root.right = this.delete(root.right, value);
     }
@@ -76,5 +86,5 @@ let arr = [1, 2, 3, 4, 5, 6, 7];
 const tree = new Tree(arr);
 tree.insert(tree.root, 8);
 prettyPrint(tree.root);
-tree.delete(tree.root, 8);
+tree.delete(tree.root, 7);
 prettyPrint(tree.root);
