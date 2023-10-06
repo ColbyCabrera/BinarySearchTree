@@ -45,23 +45,27 @@ class Tree {
   }
 
   delete(root, value) {
+    if (root == null) {
+      return null;
+    }
     if (value == root.data) {
       if (root.left == null && root.right == null) {
         return null;
       } else if (root.left && root.right) {
         let successorParent = root;
         let successor = root.right;
+
         while (successor.left != null) {
           successorParent = successor;
           successor = successor.left;
         }
-        
+
         if (successorParent != root) {
           successorParent.left = successor.right;
-        }
-        else {
+        } else {
           successorParent.right = successor.right;
         }
+
         root.data = successor.data;
         successor = null;
         return root;
@@ -70,15 +74,24 @@ class Tree {
       } else {
         return root.right;
       }
-    }
-    if (value < root.data) {
+    } else if (value < root.data) {
       root.left = this.delete(root.left, value);
     } else {
       root.right = this.delete(root.right, value);
     }
     return root;
   }
-  // create helpers like hasChildren()
+
+  find(root, value) {
+    if (value == root.data) {
+      return root;
+    } else if (value < root.data) {
+      root.left = this.find(root.left, value);
+    } else {
+      root.right = this.find(root.right, value);
+    }
+    return root;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -94,10 +107,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let arr = [1, 3, 5, 7, 9, 11, 13, 8];
-let arr2 = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
+let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
 const tree = new Tree(arr);
 tree.insert(tree.root, 12);
 prettyPrint(tree.root);
-tree.delete(tree.root, 8);
+tree.delete(tree.root, 1);
 prettyPrint(tree.root);
+
