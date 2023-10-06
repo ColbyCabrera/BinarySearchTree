@@ -49,15 +49,26 @@ class Tree {
       if (root.left == null && root.right == null) {
         return null;
       } else if (root.left && root.right) {
-        // Both children
-        console.log("Not implemented");
-        return null;
+        let successorParent = root;
+        let successor = root.right;
+        while (successor.left != null) {
+          successorParent = successor;
+          successor = successor.left;
+        }
+        
+        if (successorParent != root) {
+          successorParent.left = successor.right;
+        }
+        else {
+          successorParent.right = successor.right;
+        }
+        root.data = successor.data;
+        successor = null;
+        return root;
       } else if (root.left && !root.right) {
-        const child = new Node(root.left.data);
-        return child;
+        return root.left;
       } else {
-        const child = new Node(root.right.data);
-        return child;
+        return root.right;
       }
     }
     if (value < root.data) {
@@ -67,6 +78,7 @@ class Tree {
     }
     return root;
   }
+  // create helpers like hasChildren()
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -82,9 +94,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let arr = [1, 2, 3, 4, 5, 6, 7];
+let arr = [1, 3, 5, 7, 9, 11, 13, 8];
+let arr2 = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
 const tree = new Tree(arr);
-tree.insert(tree.root, 8);
+tree.insert(tree.root, 12);
 prettyPrint(tree.root);
-tree.delete(tree.root, 7);
+tree.delete(tree.root, 8);
 prettyPrint(tree.root);
