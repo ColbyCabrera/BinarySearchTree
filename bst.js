@@ -83,14 +83,15 @@ class Tree {
   }
 
   find(root, value) {
-    if (value == root.data) {
+    if (root == null || value == root.data) {
       return root;
-    } else if (value < root.data) {
-      root.left = this.find(root.left, value);
-    } else {
-      root.right = this.find(root.right, value);
     }
-    return root;
+
+    if (value < root.data) {
+      return this.find(root.left, value);
+    }
+
+    return this.find(root.right, value);
   }
 }
 
@@ -113,4 +114,4 @@ tree.insert(tree.root, 12);
 prettyPrint(tree.root);
 tree.delete(tree.root, 1);
 prettyPrint(tree.root);
-
+console.log(tree.find(tree.root, 70));
