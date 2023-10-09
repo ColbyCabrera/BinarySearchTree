@@ -105,9 +105,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
-const tree = new Tree(arr);
-tree.insert(tree.root, 12);
+const tree = new Tree([1, 12]);
 prettyPrint(tree.root);
-tree.delete(tree.root, 1);
-prettyPrint(tree.root);
-console.log(tree.find(tree.root, 12));
