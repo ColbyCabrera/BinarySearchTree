@@ -89,6 +89,18 @@ class Tree {
       return this.find(root.left, value);
     } else return this.find(root.right, value);
   }
+
+  levelOrder(func, root) {
+    let queue = [];
+    queue.push(root);
+
+    while (queue[0] != undefined) {
+      let current = queue.shift();
+      if (current.right) queue.push(current.right);
+      if (current.left) queue.push(current.left);
+      func(current);
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -105,5 +117,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
-const tree = new Tree([1, 12]);
+const tree = new Tree(arr);
 prettyPrint(tree.root);
