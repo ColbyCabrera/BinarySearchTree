@@ -103,7 +103,19 @@ class Tree {
   }
 
   inorder(func, root) {
+    if (root == null) {
+      return;
+    }
 
+    if (root.left) {
+      this.inorder(func, root.left);
+    }
+
+    func(root);
+
+    if(root.right) {
+      this.inorder(func, root.right);
+    }
   }
   preorder(func, root) {
     func(root);
@@ -136,4 +148,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
 const tree = new Tree(arr);
 prettyPrint(tree.root);
-tree.preorder((x) => console.log(x.data),  tree.root);
+tree.inorder((x) => console.log(x.data),  tree.root);
