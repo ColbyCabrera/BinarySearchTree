@@ -13,6 +13,8 @@ class Tree {
     this.root = this.buildTree(arr);
   }
 
+  let;
+
   buildTree(arr) {
     if (arr.length == 2) {
       let node = new Node(arr[1]);
@@ -136,6 +138,14 @@ class Tree {
 
     func(root);
   }
+
+  height(root) {
+    if (root == null) return 0;
+    let leftHeight = this.height(root.left);
+    let rightHeight = this.height(root.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -154,4 +164,3 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
 const tree = new Tree(arr);
 prettyPrint(tree.root);
-tree.postorder((x) => console.log(x.data), tree.root);
