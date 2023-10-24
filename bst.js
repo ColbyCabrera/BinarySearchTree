@@ -146,6 +146,16 @@ class Tree {
 
     return Math.max(leftHeight, rightHeight) + 1;
   }
+
+  depth(root, node, depth = 0) {
+    if (root == null || node == null) {
+      return;
+    } else if (root == node) {
+      return depth;
+    } else if (node.data < root.data) {
+      return this.depth(root.left, node, (depth += 1)); 
+    } else return this.depth(root.right, node, (depth += 1));
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -164,3 +174,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
 const tree = new Tree(arr);
 prettyPrint(tree.root);
+let depth = tree.depth(tree.root, tree.find(tree.root, 36));
+console.log(depth);
