@@ -13,8 +13,6 @@ class Tree {
     this.root = this.buildTree(arr);
   }
 
-  let;
-
   buildTree(arr) {
     if (arr.length == 2) {
       let node = new Node(arr[1]);
@@ -156,6 +154,17 @@ class Tree {
       return this.depth(root.left, node, (depth += 1)); 
     } else return this.depth(root.right, node, (depth += 1));
   }
+
+  isBalanced(root) {
+    let heightLeft = this.height(root.left);
+    let heightRight = this.height(root.right);
+
+    if (Math.abs(heightLeft - heightRight > 1)) {
+      return false;
+    }
+
+    return true;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -174,5 +183,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
 const tree = new Tree(arr);
 prettyPrint(tree.root);
-let depth = tree.depth(tree.root, tree.find(tree.root, 36));
-console.log(depth);
+
+console.log(tree.isBalanced(tree.root));
