@@ -165,6 +165,15 @@ class Tree {
 
     return true;
   }
+
+  rebalance() {
+
+    let arr = [];
+    this.levelOrder(x => arr.push(x.data), this.root);
+    arr.sort((a, b) => a - b);
+    this.root = this.buildTree(arr);
+    
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -185,3 +194,4 @@ const tree = new Tree(arr);
 prettyPrint(tree.root);
 
 console.log(tree.isBalanced(tree.root));
+tree.rebalance();
