@@ -151,28 +151,31 @@ class Tree {
     } else if (root == node) {
       return depth;
     } else if (node.data < root.data) {
-      return this.depth(root.left, node, (depth += 1)); 
+      return this.depth(root.left, node, (depth += 1));
     } else return this.depth(root.right, node, (depth += 1));
   }
 
-  isBalanced(root) {
-    let heightLeft = this.height(root.left);
-    let heightRight = this.height(root.right);
+  isBalanced(root = this.root) {
+    if (root === null) return true;
 
-    if (Math.abs(heightLeft - heightRight > 1)) {
+    const diff = Math.abs(this.height(root.left) - this.height(root.right));
+
+    if (
+      diff <= 1 &&
+      this.isBalanced(root.left) &&
+      this.isBalanced(root.right)
+    ) {
+      return true;
+    } else {
       return false;
     }
-
-    return true;
   }
 
   rebalance() {
-
     let arr = [];
-    this.levelOrder(x => arr.push(x.data), this.root);
+    this.levelOrder((x) => arr.push(x.data), this.root);
     arr.sort((a, b) => a - b);
     this.root = this.buildTree(arr);
-    
   }
 }
 
@@ -189,9 +192,46 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let arr = [50, 70, 60, 80, 85, 75, 65, 30, 20, 40, 32, 34, 36];
+let arr = [
+  2, 3, 8, 10, 13, 23, 36, 37, 45, 46, 48, 50, 56, 71, 73, 76, 89, 96, 99, 100,
+];
 const tree = new Tree(arr);
+
+let levelOrder = "";
+let preOrder = "";
+let postOrder = "";
+let inOrder = "";
+
 prettyPrint(tree.root);
 
-console.log(tree.isBalanced(tree.root));
-tree.rebalance();
+console.log("Balanced: " + tree.isBalanced());
+
+tree.levelOrder((node) => {
+  levelOrder += node.data + " ";
+}, tree.root);
+
+tree.preorder((node) => {
+  preOrder += node.data + " ";
+}, tree.root);
+
+tree.postorder((node) => {
+  postOrder += node.data + " ";
+}, tree.root);
+
+tree.inorder((node) => {
+  inOrder += node.data + " ";
+}, tree.root);
+
+console.log("Level order: " + levelOrder);
+console.log("Pre order: " + preOrder);
+console.log("Post order: " + postOrder);
+console.log("In order: " + inOrder);
+
+tree.insert(tree.root, 500);
+tree.insert(tree.root, 300);
+tree.insert(tree.root, 200);
+tree.insert(tree.root, 570);
+
+console.log("Tree after insertions: ");
+prettyPrint(tree.root);
+console.log("Balanced: " + tree.isBalanced(tree.root));
