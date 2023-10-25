@@ -195,6 +195,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [
   2, 3, 8, 10, 13, 23, 36, 37, 45, 46, 48, 50, 56, 71, 73, 76, 89, 96, 99, 100,
 ];
+
 const tree = new Tree(arr);
 
 let levelOrder = "";
