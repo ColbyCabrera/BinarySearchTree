@@ -235,3 +235,33 @@ tree.insert(tree.root, 570);
 console.log("Tree after insertions: ");
 prettyPrint(tree.root);
 console.log("Balanced: " + tree.isBalanced(tree.root));
+
+tree.rebalance();
+console.log("Balanced after rebalancing: " + tree.isBalanced(tree.root));
+console.log("Elements after rebalancing");
+
+levelOrder = "";
+preOrder = "";
+postOrder = "";
+inOrder = "";
+
+tree.levelOrder((node) => {
+  levelOrder += node.data + " ";
+}, tree.root);
+
+tree.preorder((node) => {
+  preOrder += node.data + " ";
+}, tree.root);
+
+tree.postorder((node) => {
+  postOrder += node.data + " ";
+}, tree.root);
+
+tree.inorder((node) => {
+  inOrder += node.data + " ";
+}, tree.root);
+
+console.log("Level order: " + levelOrder);
+console.log("Pre order: " + preOrder);
+console.log("Post order: " + postOrder);
+console.log("In order: " + inOrder);
